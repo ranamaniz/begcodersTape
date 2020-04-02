@@ -29,9 +29,26 @@
                         @foreach($questionrow->answers as $answerrow)
                         {{-- gets a row of answer i.e. answerData data --}}
 
-                            <li class="list-group-item">{{ $answerrow->answer }}</li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div>{{ $answerrow->answer }} </div>
+                                <div class="">
+                                    {{ ($answerrow->surveyresponses()->count()) ? intval(($answerrow->surveyresponses()->count()*100)/ ($questionrow->surveyresponses()->count())).'%': ($answerrow->surveyresponses()->count()).'%' }}
+                                </div>
+                                
+                                
+                            </li>
                         @endforeach
                     </ul> 
+                </div>
+                <div class="card-footer">
+                    <form action="/questionnaires/{{ $questionnaire->id }}/questions/{{ $questionrow->id }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn btn-sm btn-outline-danger" >
+                            Delete Question
+                        </button>
+
+                    </form>
                 </div>
             </div>
             @endforeach

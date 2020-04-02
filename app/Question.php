@@ -13,6 +13,12 @@ class Question extends Model
     	return $this->belongsTo(Questionnaire::class);
     }
 
+    //for the same question there are many responses over different surveys
+    //i.e. for same question_id-> has many response_id
+    public function surveyresponses(){
+    	return $this->hasMany(SurveyResponse::class);
+    }
+
     public function answers(){
     	return $this->hasMany(Answer::class);
     }

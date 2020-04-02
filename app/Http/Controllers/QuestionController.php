@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Questionnaire;
+use App\Question;
 
 class QuestionController extends Controller
 {
-    //
-
     public function create(Questionnaire $questionnaire){
     	return view('question.create',['questionnaire'=>$questionnaire]);
     }
@@ -28,5 +27,20 @@ class QuestionController extends Controller
     	$question->answers()->createMany($data['answers']);
 
     	return redirect('/questionnaires/'.$questionnaire->id);
+    }
+
+    // double model-route biding
+    public function destroy(Questionnaire $questionnaire, Question $question){
+       // dd($questionnaire);
+       // dd($question->answers);
+
+        //delete answer related to question
+        $question->answers()->delete(); 
+        // delete answers and questions in survey which are related to questions that are to be deleted
+        $question->surveyresponses()->delete();        
+        $question->delete();
+
+        return redirect($questionnaire->path( ));
+
     }
 }

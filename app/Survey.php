@@ -12,6 +12,8 @@ class Survey extends Model
     	return $this->belongsTo(Questionnaire::class);
     }
 
+    //has many ressponses or answers for a single survey 
+    // i.e. one many answersId or answers(in different rows) for a single surveyId  
     public function surveyresponses(){
     	return $this->hasMany(SurveyResponse::class);
     }

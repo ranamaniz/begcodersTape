@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Questionnaire;
 
 class QuestionnaireController extends Controller
 {
@@ -31,9 +31,11 @@ class QuestionnaireController extends Controller
     	return redirect('/questionnaires/'.$questionnaire->id);
     }
 
-    public function show(\App\Questionnaire $questionnaire){
+    public function show(Questionnaire $questionnaire){
         // dd($questionnaire);
         $questionnaire->load('questions.answers');
+        // dd($questionnaire->questions()->answers()->count());
+
         // dd($questionnaire);
     	return view('questionnaire.show',compact('questionnaire'));
     }

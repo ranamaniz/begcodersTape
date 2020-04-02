@@ -11,8 +11,8 @@ class Questionnaire extends Model
     protected $guarded=[];
 
     // using helper to provide path
+    // this path leads to show questionnares i.e QuestionnaireController@show
     public function path(){
-
         // return '/questionnaire'.$questionnaire->id;
         // can use $this instead of $questionnaire
         return url('/questionnaires/'.$this->id);
